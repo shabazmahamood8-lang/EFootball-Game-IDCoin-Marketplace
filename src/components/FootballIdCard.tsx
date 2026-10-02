@@ -10,7 +10,7 @@ interface FootballIdCardProps {
 export const FootballIdCard: React.FC<FootballIdCardProps> = ({ item, onViewDetails }) => {
   const [imageError, setImageError] = useState(false);
   const isSold = item.status === 'sold';
-  const mainImage = item.images && item.images.length > 0 ? item.images[0] : '';
+  const mainImage = (item.images && item.images.length > 0 ? item.images[0] : (item as any).image) || '';
 
   return (
     <div

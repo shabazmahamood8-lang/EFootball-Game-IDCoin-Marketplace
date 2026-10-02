@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Filter, SlidersHorizontal, Shield, Sparkles, RefreshCw, X } from 'lucide-react';
+import { Search, Filter, SlidersHorizontal, Shield, Sparkles, RefreshCw, X, AlertCircle } from 'lucide-react';
 import { IFootballID } from '../server/models/types.js';
 import { FootballIdCard } from './FootballIdCard';
 
@@ -10,6 +10,7 @@ interface FootballIdsViewProps {
 export const FootballIdsView: React.FC<FootballIdsViewProps> = ({ onViewDetails }) => {
   const [items, setItems] = useState<IFootballID[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Filters state
   const [search, setSearch] = useState('');
@@ -25,6 +26,7 @@ export const FootballIdsView: React.FC<FootballIdsViewProps> = ({ onViewDetails 
   const fetchItems = useCallback(async () => {
     try {
       setLoading(true);
+      setErrorMessage(null);
       const params = new URLSearchParams();
       if (search.trim()) params.append('search', search.trim());
       if (platform !== 'all') params.append('platform', platform);
@@ -36,12 +38,18 @@ export const FootballIdsView: React.FC<FootballIdsViewProps> = ({ onViewDetails 
       if (sort) params.append('sort', sort);
 
       const res = await fetch(`/api/ids?${params.toString()}`);
-      if (res.ok) {
-        const data = await res.json();
-        setItems(data.ids || []);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMessage(data.error || 'Unable to load football IDs from MongoDB');
+        setItems([]);
+        return;
       }
-    } catch {
-      // offline fallback
+
+      setItems(data.ids || []);
+    } catch (err) {
+      setErrorMessage((err as Error).message || 'Network connection failed while fetching IDs');
+      setItems([]);
     } finally {
       setLoading(false);
     }
@@ -85,6 +93,20 @@ export const FootballIdsView: React.FC<FootballIdsViewProps> = ({ onViewDetails 
           Browse verified eFootball and EA FC Mobile accounts with maxed team ratings, booster legends, and ready-to-play squads.
         </p>
       </div>
+
+      {/* Error State Banner if Database Issue */}
+      {errorMessage && (
+        <div className="mb-6 p-4 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-200 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+          <div className="text-xs space-y-1">
+            <span className="font-bold text-white block">Database Notice</span>
+            <p>{errorMessage}</p>
+            <p className="text-neutral-400 text-[11px]">
+              If running in production, ensure MONGODB_URI and Network Access (0.0.0.0/0) are active in MongoDB Atlas.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Search & Main Filter Controls Bar */}
       <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 sm:p-5 mb-8 space-y-4">
@@ -226,21 +248,27 @@ export const FootballIdsView: React.FC<FootballIdsViewProps> = ({ onViewDetails 
       {loading ? (
         <div className="py-20 text-center space-y-3">
           <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin mx-auto" />
-          <p className="text-sm font-mono text-neutral-400">Loading football squad listings...</p>
+          <p className="text-sm font-mono text-neutral-400">Loading football squad listings from MongoDB...</p>
         </div>
       ) : items.length === 0 ? (
         <div className="py-20 text-center p-8 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-3">
           <Shield className="w-12 h-12 text-neutral-600 mx-auto" />
-          <h3 className="text-lg font-bold text-white">No football IDs match your criteria</h3>
+          <h3 className="text-lg font-bold text-white">
+            {hasActiveFilters ? 'No football IDs match your criteria' : 'No football IDs available yet.'}
+          </h3>
           <p className="text-xs text-neutral-400 max-w-sm mx-auto">
-            Try adjusting your search terms, minimum OVR rating, or price parameters to find available accounts.
+            {hasActiveFilters
+              ? 'Try adjusting your search terms, minimum OVR rating, or price parameters.'
+              : 'Verified tournament squads will appear here as soon as they are listed in MongoDB.'}
           </p>
-          <button
-            onClick={clearFilters}
-            className="mt-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold"
-          >
-            Reset Filters
-          </button>
+          {hasActiveFilters && (
+            <button
+              onClick={clearFilters}
+              className="mt-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold"
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

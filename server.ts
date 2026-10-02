@@ -11,7 +11,8 @@ import settingsRoutes from './src/server/routes/settings.js';
 import contactRoutes from './src/server/routes/contact.js';
 import uploadRoutes from './src/server/routes/upload.js';
 import adminStatsRoutes from './src/server/routes/adminStats.js';
-import { connectMongo } from './src/server/db.js';
+import healthRoutes from './src/server/routes/health.js';
+import { connectToDatabase } from './lib/mongodb.js';
 
 dotenv.config();
 
@@ -22,12 +23,19 @@ async function startServer() {
   const app = express();
   const PORT = process.env.PORT || 3000;
 
-  // JSON Body parsing with limit for image uploads
+  // JSON Body parsing with limit for base64 image uploads
   app.use(express.json({ limit: '20mb' }));
   app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
-  // Try connecting to MongoDB if MONGODB_URI is provided
-  await connectMongo();
+  // Connect to MongoDB Atlas
+  try {
+    await connectToDatabase();
+  } catch (err) {
+    console.warn('[Server Startup] MongoDB initial connection check:', (err as Error).message);
+  }
+
+  // Health check endpoints (database check at /api/health/database)
+  app.use('/api/health', healthRoutes);
 
   // API Routes
   app.use('/api/auth', authRoutes);
@@ -39,11 +47,6 @@ async function startServer() {
   app.use('/api/contact', contactRoutes);
   app.use('/api/upload', uploadRoutes);
   app.use('/api/admin', adminStatsRoutes);
-
-  // Health check endpoint
-  app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok', store: 'FOOTBALL ID STORE' });
-  });
 
   // Serve static assets or mount Vite dev server
   const isProd = process.env.NODE_ENV === 'production';
@@ -62,7 +65,7 @@ async function startServer() {
   }
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`[FOOTBALL ID STORE] Server running on port ${PORT}`);
   });
 }
 

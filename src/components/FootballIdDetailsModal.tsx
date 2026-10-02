@@ -19,7 +19,7 @@ export const FootballIdDetailsModal: React.FC<FootballIdDetailsModalProps> = ({
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const isSold = item.status === 'sold';
-  const images = item.images && item.images.length > 0 ? item.images : ['/src/assets/images/card_superstar_squad_1790958699479.jpg'];
+  const images = (item.images && item.images.length > 0 ? item.images : ((item as any).image ? [(item as any).image] : []));
   const discountPercent = item.originalPrice > item.price
     ? Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100)
     : 0;

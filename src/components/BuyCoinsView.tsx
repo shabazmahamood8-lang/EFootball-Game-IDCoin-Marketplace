@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Coins, Zap, ShieldCheck, HelpCircle, ArrowRight, RefreshCw } from 'lucide-react';
+import { Coins, Zap, ShieldCheck, HelpCircle, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
 import { ICoinPackage } from '../server/models/types.js';
 import { CoinPackageCard } from './CoinPackageCard';
 
@@ -10,18 +10,24 @@ interface BuyCoinsViewProps {
 export const BuyCoinsView: React.FC<BuyCoinsViewProps> = ({ onBuyCoins }) => {
   const [packages, setPackages] = useState<ICoinPackage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPackages = async () => {
       try {
         setLoading(true);
+        setErrorMessage(null);
         const res = await fetch('/api/coins');
-        if (res.ok) {
-          const data = await res.json();
-          setPackages(data.coinPackages || []);
+        const data = await res.json();
+        if (!res.ok) {
+          setErrorMessage(data.error || 'Failed to load coin packages from MongoDB');
+          setPackages([]);
+          return;
         }
-      } catch {
-        // offline
+        setPackages(data.coinPackages || []);
+      } catch (err) {
+        setErrorMessage((err as Error).message || 'Network error fetching coin packages');
+        setPackages([]);
       } finally {
         setLoading(false);
       }
@@ -45,6 +51,17 @@ export const BuyCoinsView: React.FC<BuyCoinsViewProps> = ({ onBuyCoins }) => {
           Purchase verified eFootball and EA FC Mobile coins at discounted Bangladeshi Taka (৳) rates. 100% password-free server top-up using only your Player ID.
         </p>
       </div>
+
+      {/* Error Notice */}
+      {errorMessage && (
+        <div className="mb-6 p-4 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-200 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+          <div className="text-xs space-y-1">
+            <span className="font-bold text-white block">Database Connection Error</span>
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
 
       {/* Safety & Delivery Banner */}
       <div className="mb-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -92,10 +109,12 @@ export const BuyCoinsView: React.FC<BuyCoinsViewProps> = ({ onBuyCoins }) => {
           <p className="text-sm font-mono text-neutral-400">Loading coin packages from database...</p>
         </div>
       ) : packages.length === 0 ? (
-        <div className="py-20 text-center p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
+        <div className="py-20 text-center p-8 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-2">
           <Coins className="w-12 h-12 text-neutral-600 mx-auto mb-2" />
-          <h3 className="text-base font-bold text-white">No coin packages available right now</h3>
-          <p className="text-xs text-neutral-400 mt-1">Please check back shortly or message our support.</p>
+          <h3 className="text-base font-bold text-white">No coin packages available yet.</h3>
+          <p className="text-xs text-neutral-400">
+            Coin packages added by the administrator in MongoDB will appear here.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -20,7 +20,7 @@ import { BuyCoinsView } from './components/BuyCoinsView';
 import { CustomerDashboard } from './components/CustomerDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { IFootballID, ICoinPackage, IReview, ISiteSettings } from './server/models/types.js';
-import { ArrowRight, Coins, Shield, Sparkles } from 'lucide-react';
+import { ArrowRight, Coins, Shield, AlertCircle } from 'lucide-react';
 
 function AppContent() {
   const [currentTab, setCurrentTab] = useState<string>('home');
@@ -28,6 +28,7 @@ function AppContent() {
   const [coinPackages, setCoinPackages] = useState<ICoinPackage[]>([]);
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [settings, setSettings] = useState<ISiteSettings | null>(null);
+  const [dbError, setDbError] = useState<string | null>(null);
 
   // Selected modals
   const [selectedIdForDetail, setSelectedIdForDetail] = useState<IFootballID | null>(null);
@@ -37,10 +38,11 @@ function AppContent() {
   const { user, openAuthModal } = useAuth();
   const { showToast } = useToast();
 
-  // Load initial public content
+  // Load initial public content from real database
   useEffect(() => {
     const loadData = async () => {
       try {
+        setDbError(null);
         const [idsRes, coinsRes, reviewsRes, settingsRes] = await Promise.all([
           fetch('/api/ids?sort=featured'),
           fetch('/api/coins'),
@@ -51,6 +53,9 @@ function AppContent() {
         if (idsRes.ok) {
           const idsData = await idsRes.json();
           setFeaturedIds(idsData.ids || []);
+        } else {
+          const err = await idsRes.json().catch(() => ({}));
+          setDbError(err.error || 'Failed to connect to database');
         }
 
         if (coinsRes.ok) {
@@ -68,7 +73,8 @@ function AppContent() {
           setSettings(settData.settings);
         }
       } catch (err) {
-        console.warn('Network sync notice:', err);
+        console.warn('[Data Fetch Notice]:', err);
+        setDbError('Could not reach backend API. Verify server and network connection.');
       }
     };
 
@@ -76,7 +82,6 @@ function AppContent() {
   }, []);
 
   const handleOrderSuccess = (_orderId: string) => {
-    // Navigate to dashboard orders to view status
     setCurrentTab('dashboard');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -103,6 +108,13 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col font-sans">
       <Navbar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+
+      {dbError && (
+        <div className="bg-rose-950/80 border-b border-rose-500/30 px-4 py-2 text-xs text-rose-200 flex items-center justify-center gap-2">
+          <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+          <span>{dbError}</span>
+        </div>
+      )}
 
       <main className="flex-1">
         {/* TAB: HOME */}
@@ -137,27 +149,39 @@ function AppContent() {
                     </p>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      setCurrentTab('ids');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 hover:text-emerald-300 font-semibold group self-start sm:self-end"
-                  >
-                    <span>View all listings ({featuredIds.length})</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  {featuredIds.length > 0 && (
+                    <button
+                      onClick={() => {
+                        setCurrentTab('ids');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 hover:text-emerald-300 font-semibold group self-start sm:self-end"
+                    >
+                      <span>View all listings ({featuredIds.length})</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {featuredIds.slice(0, 3).map((item) => (
-                    <FootballIdCard
-                      key={item.id}
-                      item={item}
-                      onViewDetails={(selected) => setSelectedIdForDetail(selected)}
-                    />
-                  ))}
-                </div>
+                {featuredIds.length === 0 ? (
+                  <div className="py-12 text-center p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-2">
+                    <Shield className="w-10 h-10 text-neutral-600 mx-auto" />
+                    <h3 className="text-base font-semibold text-white">No football IDs available yet.</h3>
+                    <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                      Tournament squads will appear here as soon as they are listed in MongoDB.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {featuredIds.slice(0, 3).map((item) => (
+                      <FootballIdCard
+                        key={item.id}
+                        item={item}
+                        onViewDetails={(selected) => setSelectedIdForDetail(selected)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
 
@@ -178,27 +202,39 @@ function AppContent() {
                     </p>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      setCurrentTab('coins');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 hover:text-amber-300 font-semibold group self-start sm:self-end"
-                  >
-                    <span>View all packages</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </button>
+                  {coinPackages.length > 0 && (
+                    <button
+                      onClick={() => {
+                        setCurrentTab('coins');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-amber-400 hover:text-amber-300 font-semibold group self-start sm:self-end"
+                    >
+                      <span>View all packages</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {coinPackages.slice(0, 3).map((pkg) => (
-                    <CoinPackageCard
-                      key={pkg.id}
-                      pkg={pkg}
-                      onBuyCoins={handleBuyCoins}
-                    />
-                  ))}
-                </div>
+                {coinPackages.length === 0 ? (
+                  <div className="py-12 text-center p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-2">
+                    <Coins className="w-10 h-10 text-neutral-600 mx-auto" />
+                    <h3 className="text-base font-semibold text-white">No coin packages available yet.</h3>
+                    <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                      Coin packages created by the administrator in MongoDB will appear here.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {coinPackages.slice(0, 3).map((pkg) => (
+                      <CoinPackageCard
+                        key={pkg.id}
+                        pkg={pkg}
+                        onBuyCoins={handleBuyCoins}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
 

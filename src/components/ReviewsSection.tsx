@@ -24,7 +24,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({ reviews }) => {
 
         {reviews.length === 0 ? (
           <div className="text-center py-12 text-sm text-neutral-500 font-mono">
-            No customer reviews yet. Be the first to leave a review!
+            No reviews yet.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
