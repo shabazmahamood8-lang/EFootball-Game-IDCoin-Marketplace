@@ -161,10 +161,10 @@ function getInitialData(): DatabaseState {
   const adminPasswordHash = bcrypt.hashSync('admin123456', 10);
   const buyerPasswordHash = bcrypt.hashSync('buyer123456', 10);
 
-  const heroImg = '/src/assets/images/hero_football_stadium_1790958685031.jpg';
-  const superstarImg = '/src/assets/images/card_superstar_squad_1790958699479.jpg';
-  const formationImg = '/src/assets/images/card_elite_formation_1790958713788.jpg';
-  const coinsImg = '/src/assets/images/football_coins_treasure_1790958724643.jpg';
+  const heroImg = '/images/hero_football_stadium_1790958685031.jpg';
+  const superstarImg = '/images/card_superstar_squad_1790958699479.jpg';
+  const formationImg = '/images/card_elite_formation_1790958713788.jpg';
+  const coinsImg = '/images/football_coins_treasure_1790958724643.jpg';
 
   return {
     users: [
@@ -504,37 +504,45 @@ function getInitialData(): DatabaseState {
 let memoryDb: DatabaseState = getInitialData();
 
 export function getDatabase(): DatabaseState {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-
-  if (fs.existsSync(DB_FILE)) {
-    try {
-      const content = fs.readFileSync(DB_FILE, 'utf-8');
-      const parsed = JSON.parse(content);
-      memoryDb = {
-        ...getInitialData(),
-        ...parsed,
-      };
-      return memoryDb;
-    } catch {
-      saveDatabase(memoryDb);
-      return memoryDb;
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      try {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      } catch {
+        // Read-only filesystem in serverless environments (Vercel)
+      }
     }
-  } else {
-    saveDatabase(memoryDb);
-    return memoryDb;
+
+    if (fs.existsSync(DB_FILE)) {
+      try {
+        const content = fs.readFileSync(DB_FILE, 'utf-8');
+        const parsed = JSON.parse(content);
+        memoryDb = {
+          ...getInitialData(),
+          ...parsed,
+        };
+        return memoryDb;
+      } catch {
+        return memoryDb;
+      }
+    }
+  } catch {
+    // Filesystem not writable or accessible, safely continue with in-memory state
   }
+  return memoryDb;
 }
 
 export function saveDatabase(data: DatabaseState): void {
   try {
+    memoryDb = data;
     if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
+      try {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      } catch {}
     }
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
-    memoryDb = data;
   } catch (err) {
-    console.error('Error saving database:', err);
+    // In read-only serverless runtime (like Vercel), memoryDb is preserved in memory
+    console.warn('[Storage Notice] Read-only environment, state retained in memory.');
   }
 }
