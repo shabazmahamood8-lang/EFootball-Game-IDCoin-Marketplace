@@ -1,0 +1,436 @@
+{
+  "users": [
+    {
+      "id": "usr-admin-01",
+      "name": "Head Administrator",
+      "email": "admin@footballstore.com",
+      "phone": "+880 1712-000111",
+      "password": "$2b$10$J0FYb52BjMlKEGHKGVw36O7namFbC3S97mVECg9d4IAI4aIWtIiou",
+      "role": "admin",
+      "createdAt": "2026-10-02T16:38:36.781Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "usr-buyer-02",
+      "name": "Rahim Khan",
+      "email": "buyer@footballstore.com",
+      "phone": "+880 1812-999888",
+      "password": "$2b$10$SVuq40Cf8b/f7ZdB77ouAONexv4fVJZYovFJVtalazK3M08.5UdQW",
+      "role": "customer",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    }
+  ],
+  "footballIds": [
+    {
+      "id": "fid-101",
+      "title": "Big Time Messi 103 + Booster Haaland Epic God Squad",
+      "game": "eFootball 2026",
+      "price": 4800,
+      "originalPrice": 6000,
+      "images": [
+        "/src/assets/images/card_superstar_squad_1790958699479.jpg",
+        "/src/assets/images/card_elite_formation_1790958713788.jpg",
+        "/src/assets/images/hero_football_stadium_1790958685031.jpg"
+      ],
+      "overallRating": 102,
+      "accountLevel": 94,
+      "platform": "Mobile (Android/iOS)",
+      "region": "Global / Asia",
+      "coinBalance": 3450,
+      "gpBalance": 4200000,
+      "players": [
+        "L. Messi (Big Time 103)",
+        "E. Haaland (Show Time)",
+        "K. Mbappé (Epic Booster)",
+        "K. De Bruyne",
+        "V. van Dijk (Show Time)",
+        "T. Courtois (Epic)"
+      ],
+      "rarePlayers": [
+        "Big Time 2022 World Cup Messi",
+        "Epic Booster Ronaldinho",
+        "Show Time Haaland 101"
+      ],
+      "specialCards": [
+        "14 Big Time Cards",
+        "22 Epic Cards",
+        "35 Highlight Cards"
+      ],
+      "description": "Spectacular tournament-ready account with 102 Team Strength. Unlinkable Konami ID ready to link directly to your fresh email. Full managers included: Pep Guardiola (88 Booster) and Carlo Ancelotti.",
+      "status": "available",
+      "featured": true,
+      "createdAt": "2026-09-29T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "fid-102",
+      "title": "FC Mobile 26 UTOTS Icons 104 OVR Dream Team",
+      "game": "EA FC Mobile",
+      "price": 3600,
+      "originalPrice": 4500,
+      "images": [
+        "/src/assets/images/card_elite_formation_1790958713788.jpg",
+        "/src/assets/images/card_superstar_squad_1790958699479.jpg",
+        "/src/assets/images/hero_football_stadium_1790958685031.jpg"
+      ],
+      "overallRating": 104,
+      "accountLevel": 78,
+      "platform": "Mobile (Android/iOS)",
+      "region": "Global",
+      "coinBalance": 82000,
+      "gpBalance": 125000000,
+      "players": [
+        "R9 Ronaldo Icon 105",
+        "Gullit Prime 104",
+        "Zidane 103",
+        "Maldini 104",
+        "Viera 103",
+        "Buffon Icon 102"
+      ],
+      "rarePlayers": [
+        "Prime Icon R9 105",
+        "Ruud Gullit 104",
+        "Paolo Maldini 104"
+      ],
+      "specialCards": [
+        "UTOTS 11 Starters",
+        "15 Ranked Red Ranks",
+        "9 Mascherano Rankups left"
+      ],
+      "description": "Ranked FIFA Mobile / FC Mobile account with all maxed skill boosts. EA Account with clean login, no bans, instant transfer upon order confirmation.",
+      "status": "available",
+      "featured": true,
+      "createdAt": "2026-09-27T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "fid-103",
+      "title": "Epic Ronaldinho + Cruyff + 12000 Unspent Coins Account",
+      "game": "eFootball 2026",
+      "price": 2900,
+      "originalPrice": 3500,
+      "images": [
+        "/src/assets/images/card_superstar_squad_1790958699479.jpg",
+        "/src/assets/images/hero_football_stadium_1790958685031.jpg",
+        "/src/assets/images/card_elite_formation_1790958713788.jpg"
+      ],
+      "overallRating": 99,
+      "accountLevel": 62,
+      "platform": "Mobile (Android/iOS)",
+      "region": "Global",
+      "coinBalance": 12400,
+      "gpBalance": 2100000,
+      "players": [
+        "Ronaldinho Gaúcho (Booster)",
+        "Johan Cruyff (Epic)",
+        "Neymar Jr (Santos)",
+        "Casemiro (Anchor)",
+        "Nesta (Epic)"
+      ],
+      "rarePlayers": [
+        "Ronaldinho 101 Booster",
+        "Cruyff 100 Epic"
+      ],
+      "specialCards": [
+        "12,400 Raw Coins ready to spin upcoming packs",
+        "8 Epics"
+      ],
+      "description": "Huge coin reserve ready for any upcoming event! Includes top tier dribblers and legendary Konami ID with zero strikes.",
+      "status": "available",
+      "featured": false,
+      "createdAt": "2026-09-25T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "fid-104",
+      "title": "PC Steam eFootball Legend Squad 101 OVR",
+      "game": "eFootball 2026",
+      "price": 5200,
+      "originalPrice": 6500,
+      "images": [
+        "/src/assets/images/card_elite_formation_1790958713788.jpg",
+        "/src/assets/images/hero_football_stadium_1790958685031.jpg",
+        "/src/assets/images/card_superstar_squad_1790958699479.jpg"
+      ],
+      "overallRating": 101,
+      "accountLevel": 105,
+      "platform": "PC (Steam)",
+      "region": "Global",
+      "coinBalance": 1800,
+      "gpBalance": 5900000,
+      "players": [
+        "Cristiano Ronaldo (Manchester United Epic)",
+        "L. Messi",
+        "P. Vieira",
+        "F. Beckenbauer",
+        "P. Čech"
+      ],
+      "rarePlayers": [
+        "Man United CR7 Booster",
+        "Patrick Vieira Epic Destroyer"
+      ],
+      "specialCards": [
+        "Full Steam Account Handover",
+        "Original Email Included"
+      ],
+      "description": "Full original Steam account with eFootball 2026 maxed out squad. Full access with first registered CD-key details provided.",
+      "status": "sold",
+      "featured": false,
+      "createdAt": "2026-09-20T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "fid-105",
+      "title": "Starter God Squad: 98 OVR + 5,000 Coins Instant Delivery",
+      "game": "eFootball 2026",
+      "price": 1450,
+      "originalPrice": 1900,
+      "images": [
+        "/src/assets/images/card_superstar_squad_1790958699479.jpg",
+        "/src/assets/images/card_elite_formation_1790958713788.jpg"
+      ],
+      "overallRating": 98,
+      "accountLevel": 35,
+      "platform": "Mobile (Android/iOS)",
+      "region": "Global / Asia",
+      "coinBalance": 5120,
+      "gpBalance": 1100000,
+      "players": [
+        "K. Mbappé (Show Time)",
+        "J. Bellingham (Highlight)",
+        "Rodri",
+        "A. Davies",
+        "Alisson Becker"
+      ],
+      "rarePlayers": [
+        "Show Time Mbappé",
+        "Epic Kaka"
+      ],
+      "specialCards": [
+        "7 Epic Cards",
+        "5,120 Coins"
+      ],
+      "description": "Budget-friendly powerhouse squad. Great for division climbing and immediate competitive play.",
+      "status": "available",
+      "featured": true,
+      "createdAt": "2026-09-30T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    }
+  ],
+  "coinPackages": [
+    {
+      "id": "cp-1000",
+      "coinAmount": 1000,
+      "price": 250,
+      "originalPrice": 300,
+      "discount": 17,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "Instant top-up via Player ID & Konami server sync. 10 - 20 mins delivery.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "cp-5000",
+      "coinAmount": 5000,
+      "price": 1150,
+      "originalPrice": 1350,
+      "discount": 15,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "Fast delivery guaranteed. Safe server top-up without password sharing.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "cp-10000",
+      "coinAmount": 10000,
+      "price": 2190,
+      "originalPrice": 2600,
+      "discount": 16,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "Best value for pack opening events. Direct credit into in-game mailbox.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "cp-25000",
+      "coinAmount": 25000,
+      "price": 5200,
+      "originalPrice": 6200,
+      "discount": 16,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "VIP Priority delivery within 15 minutes. 100% Ban-Free guarantee.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "cp-50000",
+      "coinAmount": 50000,
+      "price": 9900,
+      "originalPrice": 12000,
+      "discount": 18,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "Mega booster bundle. 24/7 priority live support and transaction protection.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    },
+    {
+      "id": "cp-100000",
+      "coinAmount": 100000,
+      "price": 18900,
+      "originalPrice": 23500,
+      "discount": 20,
+      "game": "eFootball 2026",
+      "platform": "All Platforms (Mobile / PC / Console)",
+      "deliveryInfo": "Wholesale tier package for serious pro streamers & squad builders.",
+      "status": "active",
+      "createdAt": "2026-10-02T16:38:36.782Z",
+      "updatedAt": "2026-10-02T16:38:36.782Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-57613",
+      "userId": "usr-buyer-02",
+      "orderType": "COINS",
+      "coinPackageId": "cp-5000",
+      "coinAmount": 5000,
+      "price": 1150,
+      "playerID": "TEST-102938",
+      "customerName": "Rahim Khan",
+      "email": "buyer@footballstore.com",
+      "phone": "+880 1812-999888",
+      "paymentMethod": "bKash",
+      "paymentTransactionId": "TESTTRX992",
+      "note": "",
+      "status": "payment_submitted",
+      "createdAt": "2026-10-02T16:38:52.310Z",
+      "updatedAt": "2026-10-02T16:38:52.310Z"
+    },
+    {
+      "id": "ORD-89214",
+      "userId": "usr-buyer-02",
+      "orderType": "ID",
+      "footballId": "fid-104",
+      "footballIdTitle": "PC Steam eFootball Legend Squad 101 OVR",
+      "price": 5200,
+      "customerName": "Rahim Khan",
+      "email": "buyer@footballstore.com",
+      "phone": "+880 1812-999888",
+      "paymentMethod": "bKash",
+      "paymentTransactionId": "BKASH9X01492K",
+      "note": "Please send login details to my verified WhatsApp.",
+      "status": "delivered",
+      "createdAt": "2026-10-01T10:38:36.782Z",
+      "updatedAt": "2026-10-01T12:38:36.782Z"
+    },
+    {
+      "id": "ORD-89215",
+      "userId": "usr-buyer-02",
+      "orderType": "COINS",
+      "coinPackageId": "cp-10000",
+      "coinAmount": 10000,
+      "price": 2190,
+      "playerID": "EF-9482-1049",
+      "customerName": "Rahim Khan",
+      "email": "buyer@footballstore.com",
+      "phone": "+880 1812-999888",
+      "paymentMethod": "Nagad",
+      "paymentTransactionId": "NAGAD7720912",
+      "note": "eFootball Asia Region account",
+      "status": "processing",
+      "createdAt": "2026-10-02T14:38:36.782Z",
+      "updatedAt": "2026-10-02T15:38:36.782Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-01",
+      "userId": "usr-buyer-02",
+      "userName": "Rahim Khan",
+      "product": "Big Time Messi 103 Account",
+      "rating": 5,
+      "comment": "Alhamdulillah! Got the Konami ID and password in 10 minutes after bKash payment. Squad was exactly as described with 102 OVR.",
+      "status": "approved",
+      "createdAt": "2026-09-30T16:38:36.782Z"
+    },
+    {
+      "id": "rev-02",
+      "userId": "usr-buyer-03",
+      "userName": "Tanvir Hossain",
+      "product": "50,000 Coins Package",
+      "rating": 5,
+      "comment": "Super fast coin top-up without any password required. Safe and trusted service for Bangladeshi gamers.",
+      "status": "approved",
+      "createdAt": "2026-10-01T16:38:36.782Z"
+    },
+    {
+      "id": "rev-03",
+      "userId": "usr-buyer-04",
+      "userName": "Sakib Al Mahmud",
+      "product": "FC Mobile 26 Icons Team",
+      "rating": 5,
+      "comment": "100% trusted seller. The Mascheranos and R9 card are insane in Head-to-Head mode!",
+      "status": "approved",
+      "createdAt": "2026-10-02T04:38:36.782Z"
+    }
+  ],
+  "settings": {
+    "paymentNumberBkash": "+880 1712-345678",
+    "paymentNumberNagad": "+880 1812-345678",
+    "bankDetails": "City Bank Ltd | A/C: 1102938475001 | Branch: Gulshan 2, Dhaka",
+    "paymentInstructions": "1. Send Money (Personal) to our official bKash or Nagad number.\n2. Keep your Transaction ID (TrxID) handy.\n3. Enter the TrxID and your phone number in the checkout form.\n4. Our team verifies payments and fulfills orders within 15–30 minutes.",
+    "supportWhatsapp": "+880 1712-345678",
+    "supportFacebook": "https://facebook.com/footballidstore",
+    "supportEmail": "support@footballidstore.com",
+    "supportPhone": "+880 1912-345678",
+    "faqs": [
+      {
+        "question": "How do I buy a football game ID?",
+        "answer": "Browse our Football IDs section, select your desired account, review the squad formation, OVR, and player list, then click \"Buy This ID\". You will submit payment via bKash, Nagad, or Bank Transfer. After payment verification, our admin transfers complete credentials (Konami ID / EA account) directly to your contact."
+      },
+      {
+        "question": "How do I buy coins?",
+        "answer": "Navigate to \"Buy Coins\", choose a package (e.g. 1,000, 10,000, or 50,000 Coins), enter your Game ID / Player ID, select your payment method, and complete the order. Coins are safely credited directly to your account."
+      },
+      {
+        "question": "How long does delivery take?",
+        "answer": "Coin top-ups are usually processed in 10 to 30 minutes. Football ID account transfers take between 15 to 45 minutes during operational hours (9:00 AM - 1:00 AM BST)."
+      },
+      {
+        "question": "What payment methods are available?",
+        "answer": "We support all major Bangladeshi mobile banking channels including bKash (Personal/Merchant), Nagad (Personal), and direct Bank Transfers. Manual transaction verification protects both buyer and seller."
+      },
+      {
+        "question": "How do I provide my Player ID?",
+        "answer": "In eFootball or FC Mobile, tap your User Profile / Extras menu to copy your 9-10 digit User ID / Player ID. Paste that exact string into our Coin checkout form."
+      },
+      {
+        "question": "Can I get a refund?",
+        "answer": "If an ID is no longer available or an order cannot be delivered within 2 hours, we issue an instant 100% money-back refund to your original payment number."
+      }
+    ]
+  },
+  "contactMessages": [
+    {
+      "id": "msg-01",
+      "name": "Farhan Ahmed",
+      "email": "farhan@example.com",
+      "phone": "+880 1612-445566",
+      "subject": "Query regarding PC Steam Account Transfer",
+      "message": "Hi, does the PC account include the original Steam email change confirmation?",
+      "status": "read",
+      "createdAt": "2026-10-01T22:38:36.782Z"
+    }
+  ]
+}

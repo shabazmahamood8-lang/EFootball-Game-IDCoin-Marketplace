@@ -1,0 +1,6 @@
+{
+  "name": "FOOTBALL ID STORE - Football Game ID & Coin Marketplace",
+  "description": "Dedicated marketplace for buying verified football game accounts/IDs and football game coins with bKash, Nagad, and instant delivery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
